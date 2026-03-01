@@ -1,0 +1,107 @@
+.icon_wrapper {
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+}
+
+.card_title {
+  display: -webkit-box;
+  font-size: var(--hr-spacing-05);
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.6px;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card_body {
+  position: relative;
+  height: 180px;
+  color: #323232;
+  border-radius: 1rem;
+  z-index: 1;
+  background-image: var(--background-image);
+  box-shadow: 0px 2px 4px 0px #f9f9f9, 0px 2px 4px 0px rgba(249, 249, 249, 0.25);
+
+  // Since we can't manipulate the border-radius property
+  // on ::before element in case of showFooter
+  overflow: hidden;
+
+  // For noise effect to take entire width & height
+  background-size: cover;
+
+  &:hover {
+    background-image: var(--background-image-onHover);
+  }
+
+  // Transition / animation on gradients not possible
+  // hence need to use ::before trick
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: var(--background-image-onHover);
+    transition: opacity 0.5s linear;
+    opacity: 0;
+    z-index: -1;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+.showFooter {
+  height: 160px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.card_body {
+  &__typography {
+    font-size: 13px;
+    line-height: 19px;
+  }
+
+  &__progressbar_container {
+    width: 40px;
+    background: #fff;
+  }
+
+  &__progressbar {
+    background-color: #32c766;
+  }
+}
+
+.lock_icon_wrapper {
+  @extend .icon_wrapper;
+  background-color: #323232;
+}
+
+.unlock_icon_wrapper {
+  @extend .icon_wrapper;
+  background-color: #fff;
+}
+
+.check_icon_wrapper {
+  @extend .icon_wrapper;
+  background-color: #32c766;
+
+  // Since we can't manipulate the stroke-width of path directly
+  // using the class attribute of this HRDS icon
+  > svg {
+    > path {
+      stroke-width: 2;
+    }
+  }
+}
+
+.time_icon_wrapper {
+  @extend .icon_wrapper;
+  background-color: #323232;
+}

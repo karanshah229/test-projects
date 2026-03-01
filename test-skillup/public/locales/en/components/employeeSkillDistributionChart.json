@@ -1,0 +1,11 @@
+{
+  "fallback": {
+    "not_enough_skills_text": "Assess on minimum 3 skills to view skills chart",
+    "not_enough_skills_image_alt": "Employee Skill Distribution chart cannot be shown since the employee has fewer than 3 skills assessed. Assess more skills to view the chart."
+  },
+    "accessibility_description": "Skill Distribution visualised on a Radar Chart",
+    "series": {
+      "target_proficiency_title": "Target Proficiency",
+      "current_proficiency_title": "My Proficiency"
+    }
+}

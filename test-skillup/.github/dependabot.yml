@@ -1,0 +1,17 @@
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+registries:
+  npm-github:
+    type: npm-registry
+    url: https://nexus.hackerrank.com/repository/hr-npm-group/
+    token: ${{secrets.DEPENDABOT_NEXUS_TOKEN}}
+updates:
+  - package-ecosystem: npm  # See documentation for possible values
+    directory: "/" # Location of package manifests
+    registries:
+      - npm-github
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 5

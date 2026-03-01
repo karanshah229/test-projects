@@ -1,0 +1,16 @@
+config
+docker
+.github
+src/**/*.fixture.js
+public/*
+dist
+coverage
+
+.actions/
+.github/
+cache/
+
+.next/
+devspace.yaml
+chart/
+jenkinsfiles/

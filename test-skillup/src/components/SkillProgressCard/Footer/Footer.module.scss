@@ -1,0 +1,24 @@
+.skill_card_footer {
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  border: 1px solid #e4e4e4;
+  border-top: none;
+  color: #646464;
+
+  svg {
+    stroke: #888888;
+  }
+
+  &__completed_text {
+    font-size: 13px;
+    line-height: 18.549px;
+  }
+
+  &__overdue {
+    color: #cc6767;
+
+    svg {
+      stroke: #cc6767;
+    }
+  }
+}

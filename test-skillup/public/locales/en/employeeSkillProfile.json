@@ -1,0 +1,111 @@
+{
+  "Title_Tag": "Skill Profile | SkillUp",
+  "skills_count": "Skills ({{skillsCount}})",
+  "certification_table":{
+    "title_count": "Certifications ({{certificationsCount}})",
+    "aria_label": "Employee Certification Table",
+    "date": "Date",
+    "certification": "Certification",
+    "skills": "Skills"
+  },
+  "certification_insights": {
+    "description": "Certification Summary",
+    "skills": "Skills verified by this certification",
+    "btn_text": "View Full Performance Report"
+    },
+  "assessment_history": {
+    "assessment_history": "Assessment History",
+    "title_count": "Assessments ({{assessmentsCount}})",
+    "skills_assessed": "Skills Assessed",
+    "search_fallback": "No matches found. Try widening your search.",
+    "search": "Search",
+    "date": "Date",
+    "name_of_assessment": "Name of the assessment",
+    "assessment_fallback_name": "NA",
+    "loading_msg": "Loading assessment data",
+    "actions": {
+      "header": "Actions",
+      "view_report": "View Detailed Report",
+      "reinvite_candidate": "Reinvite Candidate"
+    },
+    "duration_filter_name": "Duration Filter",
+    "duration_filter_aria_label": "Select time period to filter assessments"
+  },
+  "Skill_Distribution_Chart": {
+    "skill_distribution_title": "Skill Distribution",
+    "accessibility_description": "Skill Distribution visualised on a Radar Chart",
+    "series_text": "Skills Distribution",
+    "not_enough_skills_text": "Assess on minimum 3 skills to view skills chart",
+    "not_enough_skills_image_alt": "Employee Skill Distribution chart cannot be shown since the employee has fewer than 3 skills assessed. Assess more skills to view the chart."
+  },
+  "Badges": {
+    "badge": "Badge",
+    "badges": "Badges",
+    "achieved_on": "Achieved on",
+    "all_badges_title": "All Badges",
+    "collapse": "Collapse",
+    "view_all": "View All",
+    "no_badges_text": "No badges earned yet",
+    "no_badges_image_alt": "No badges have been earned by employee yet"
+  },
+  "SkillsTable": {
+    "table_aria_label": "Employee Skills Profile - Skill Table",
+    "skill_header": "Skills",
+    "skill_rating_header": "Skill Rating on 300",
+    "proficiency_header": "Proficiency",
+    "skill_progress_header": "Progress in ",
+    "6_months": "6 Months",
+    "skill_rating_header_tooltip": {
+      "part_1": "Skill Rating is measured out of 300.",
+      "part_2": "This defines their proficiency in",
+      "part_3": "each skill."
+    }
+  },
+  "IndividualSkillDetails": {
+    "header": "{{skillName}} Insights",
+    "skill_rating": "Skill Rating",
+    "badges_earned": "Badges Earned",
+    "concept_breakdown": "Concept Breakdown",
+    "strength": "Strong Concepts",
+    "requires_attention": "Weak Concepts",
+    "total_rating": "/300"
+  },
+  "SkillProgressChart": {
+    "xaxis_description": "Assessment Date",
+    "progress_over_time": "Progress Over Time",
+    "duration_filter_name": "Skill Progress Duration Filter",
+    "duration_filter_aria_label": "Select time period to filter the progress",
+    "tooltip_max_rating": "/300",
+    "tooltip_assessment_label": "Assessment",
+    "reference_line_label_pre": "No activity in past {{numberOfMonths}}",
+    "reference_line_label_post": "months",
+    "reference_line_label_post_singular": "month",
+    "duration_filter_labels":{
+      "three_months": "Last 3 months",
+      "six_months": "Last 6 months",
+      "twelve_months": "Last 12 months",
+      "all_time": "All time"
+    }
+  },
+  "SkillConceptBreakdown": {
+    "heading": "Concept Breakdown",
+    "description": "Concept Breakdown visualised on a Radar Chart",
+    "not_enough_concepts_text": "Assess on minimum 1 concept to view concept breakdown chart",
+    "not_enough_concepts_image_alt": "Employee Concepts Breakdown chart cannot be shown since the employee has fewer than 1 concepts assessed. Assess more concepts to view the chart.",
+    "strong_concepts_legend_title": "Strong Concepts",
+    "weak_concepts_legend_title": "Weak Concepts",
+    "legend_image_alt": "Concepts Legend Image"
+  },
+  "Proficiencies": {
+    "pre_beginner": "Pre-beginner",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "expert": "Expert"
+  },
+  "fallback_state": {
+    "header": "Certified superstars in the making...",
+    "sub_header": "{{employeeName}} has not completed any certifications yet. You can send them a certified assessment from the talent directory.",
+    "assessment_text": "No skill assessments taken so far"
+  },
+  "pageLoader": "Loading Employee Skill Profile"
+}

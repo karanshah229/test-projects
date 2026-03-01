@@ -1,0 +1,48 @@
+html {
+  min-height: 100%;
+  height: 100%;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--hr-neutral-5);
+}
+
+body,
+#__next {
+  display: flex; // Using flex approach instead of height since it's independant of header and footer height
+  flex-direction: column;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+textarea,
+button,
+select {
+  font: inherit;
+}
+
+#__next {
+  flex-grow: 1;
+}

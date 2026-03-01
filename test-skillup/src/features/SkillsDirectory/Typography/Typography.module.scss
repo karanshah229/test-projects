@@ -1,0 +1,27 @@
+$max-width: 572px;
+
+.header {
+  color: var(--hr-neutral-0);
+  font-size: var(--hr-spacing-09);
+  font-weight: 600;
+  padding-bottom: var(--hr-spacing-10);
+}
+
+.sub_header {
+  color: var(--hr-neutral-0);
+  font-size: 28px;
+  font-weight: 600;
+  margin-left: var(--hr-spacing-10);
+  margin-bottom: 28px;
+  line-height: 150%;
+  max-width: $max-width;
+  word-break: break-word;
+}
+
+.text {
+  color: var(--hr-neutral-0);
+  font-size: var(--hr-spacing-04);
+  font-weight: 400;
+  width: 60%;
+  word-break: break-word;
+}

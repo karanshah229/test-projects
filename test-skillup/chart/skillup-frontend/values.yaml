@@ -1,0 +1,47 @@
+# Common global values for all applications
+global:
+  skillup_frontend: true
+  image: 
+    repository: '563410562074.dkr.ecr.us-east-1.amazonaws.com/skillup-frontend'
+    tag: 'latest'
+    imagePullPolicy: IfNotPresent
+  dnsConfig:
+    searches: ['hacker.com']
+  envVariables:
+    NEW_RELIC_LICENSE_KEY: "c049792c8c16ef4ec1abb989be8ba140FFFFNRAL"
+    NEW_RELIC_ENABLED: "false"
+  tplEnvVariables: {}
+  frontend:
+    nginx:
+      enabled: true
+      image: public.ecr.aws/nginx/nginx:1.19-alpine
+      basePath: '/skillup/'
+
+skillup-frontend:
+  fullnameOverride: 'skillup-frontend'
+  app:
+    command:
+      - '/bin/sh'
+      - '-c'
+      - 'yarn start'
+    terminationGracePeriodSeconds: 30
+    livenessProbe:
+      enabled: true
+      path: '/skillup/healthcheck'
+    readinessProbe:
+      enabled: true
+      path: '/skillup/healthcheck'
+    startupProbe:
+      enabled: true
+      path: '/skillup/healthcheck'
+    port: 3000
+    resources:
+      requests:
+        cpu: 0.5
+        memory: 2048Mi
+      limits:
+        cpu: 1.0
+        memory: 3072Mi
+  podAnnotations:
+    observability.hackerrank.com/logging: 'disabled'
+    observability.hackerrank.com/newrelic-logging: 'disabled'

@@ -1,0 +1,32 @@
+@import 'src/styles/highcharts.scss';
+.drawer_container {
+  padding: 14px 28px;
+}
+
+.loading_chart {
+  opacity: 0.5;
+}
+
+.chart_duration_filter {
+  min-width: 200px;
+}
+
+.plotBand_prebeginner {
+  opacity: 0.2;
+  color: var(--hr-neutral-15);
+}
+
+.plotBand_beginner {
+  opacity: 0.16;
+  fill: var(--hr-blue-20);
+}
+
+.plotBand_intermediate {
+  opacity: 0.23;
+  fill: var(--hr-success-20);
+}
+
+.plotBand_expert {
+  opacity: 0.2;
+  fill: var(--hr-brand-30);
+}

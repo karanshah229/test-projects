@@ -1,0 +1,209 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+sourceCompatibility = 8
+targetCompatibility = 8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    // https://mvnrepository.com/artifact/org.apache.jmeter/ApacheJMeter_core
+    implementation('org.apache.jmeter:ApacheJMeter_core:3.1') {
+        transitive = false    // Just avoid downloading half the internet
+    }
+
+    implementation('org.apache.jmeter:ApacheJMeter_components:3.1') {
+        transitive = false    // Just avoid downloading half the internet
+    }
+
+    implementation('org.apache.jmeter:ApacheJMeter_http:3.1') {
+        transitive = false    // Just avoid downloading half the internet
+    }
+
+    // https://mvnrepository.com/artifact/org.apache.jmeter/jorphan
+    implementation('org.apache.jmeter:jorphan:3.1') {
+        transitive = false
+    }
+
+    // https://mvnrepository.com/artifact/logkit/logkit
+    implementation('logkit:logkit:2.0') {
+        transitive = false
+    }
+    
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation('commons-io:commons-io:2.5') {
+        transitive = false
+    }
+
+    testImplementation('junit:junit:4.12')
+
+    testImplementation('org.mockito:mockito-core:3.12.4')
+    testImplementation('org.mockito:mockito-junit-jupiter:3.12.4')
+
+    testImplementation('avalon-framework:avalon-framework:4.1.4')
+
+    testImplementation('org.assertj:assertj-core:3.8.0')
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir "${buildDir}/generated"
+            exclude 'sources/**'
+        }
+    }
+}
+
+version = 'dev'
+
+task determineVersion {
+    doLast {
+        def proc = "git describe --exact-match HEAD".execute()
+        proc.waitFor()
+        if (proc.exitValue()) {
+            logger.quiet("Building development version.")
+        } else {
+            def versionTag = proc.in.readLines()[0]
+            // Check that tag matches format like v0.1.2.beta or 1.0 (OSGi version syntax)
+            if (versionTag ==~ /v?[0-9]+(\.\d+){1,2}(\.[\w\d_-]+)?/) {
+                if (versionTag.startsWith("v")) {
+                    versionTag = versionTag[1..-1]
+                }
+                logger.quiet("Building version ${versionTag}.")
+                project.version = versionTag
+
+                ext.versionDir = new File("${buildDir}", "generated/eu/luminis/jmeter/wssampler")
+                versionDir.mkdirs()
+
+                new File(versionDir, "version.properties").text = versionTag
+            } else {
+                logger.error("Version tag '${versionTag}' does not contain a valid version.");
+            }
+        }
+    }
+}
+
+compileJava.dependsOn (determineVersion, processResources)
+
+test {
+  testLogging {
+    afterSuite { desc, result ->
+      if (!desc.parent) { // will match the outermost suite
+        println "Test results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+      }
+    }
+  }
+}
+
+task publishToJMeterLocal(dependsOn: jar) {
+    def pluginName = rootProject.name // "JMeterWebSocketSamplers"
+    doLast {
+        def jmeterHome = System.getenv('JMETER_HOME') // Gradle has case sensitivity
+        if (jmeterHome == null || jmeterHome.trim().isEmpty()) {
+            throw new GradleException("To install the plugin please specify `JMETER_HOME` enviroment variable")
+        } else {
+            logger.quiet("jmeter_home: " + jmeterHome)
+        }
+
+        def jmeterExtPath = java.nio.file.Paths.get(jmeterHome, "lib", "ext")
+        if (!java.nio.file.Files.exists(jmeterExtPath)) {
+            throw new GradleException("Please specify valid `JMETER_HOME` enviroment variable, lib/ext subdirectory " +
+                    "should exist but it's not: " + jmeterExtPath)
+        }
+
+        def jmeterExtDir = jmeterExtPath.toAbsolutePath().toString()
+        def installedProdVersion = java.nio.file.Files.list(jmeterExtPath)
+                .map { path -> path.toFile() }
+                .filter { file -> file.isFile() }
+                .filter { file -> file.name.matches(pluginName + ".*\\.jar") }
+                .filter {file -> !file.name.equalsIgnoreCase(pluginName + "-dev.jar") }
+                .collect()
+
+        if (!installedProdVersion.isEmpty()) {
+            def prodFilesNames = installedProdVersion.stream().map { file -> file.name }.collect()
+
+            throw new GradleException('Found other versions of the plugin in lib/ext directory, collision may ocure: '
+                    + prodFilesNames + ". It's recommended to remove them from " + jmeterExtPath + " before publising current dev version.")
+        }
+
+        logger.quiet("installing the plugin into " + jmeterExtDir)
+        copy {
+            from "build/libs"
+            into jmeterExtDir
+            include "*-dev.jar"
+        }
+    }
+}
+
+configure(publishToJMeterLocal) {
+    group = 'publishing'
+    description = 'Publish development version into local JMeter'
+}
+
+group = 'net.luminis.jmeter'
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    options.addStringOption('link', 'https://docs.oracle.com/javase/8/docs/api/')
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'jmeter-websocket-samplers'
+            from components.java
+            pom {
+                name = 'JMeter WebSocket Samplers'
+                description = 'JMeter add-on that defines a number of samplers for load testing WebSocket applications.'
+                url = 'https://bitbucket.org/pjtr/jmeter-websocket-samplers'
+
+                licenses {
+                    license {
+                        name = 'GNU Lesser General Public License v3'
+                        url = 'https://www.gnu.org/licenses/lgpl-3.0-standalone.html'
+                        distribution = 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'peterd'
+                        name = 'Peter Doornbosch'
+                        email = 'peter.doornbosch@luminis.eu'
+                        organization  = 'Luminis'
+                        organizationUrl = 'http://www.luminis.eu'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git://bitbucket.org/pjtr/jmeter-websocket-samplers.git'
+                    developerConnection = 'scm:git:ssh://bitbucket.org:pjtr/jmeter-websocket-samplers.git'
+                    url = 'https://bitbucket.org/pjtr/jmeter-websocket-samplers/src'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "ossrh-staging-api"
+            url = "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/"
+            credentials {
+                username = project.properties.ossrhUsername
+                password = project.properties.ossrhPassword
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}

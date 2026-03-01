@@ -1,0 +1,11 @@
+apiVersion: v2
+name: skillup-frontend
+description: A Helm chart for Kubernetes
+type: application
+version: 0.1.0
+dependencies:
+- name: starter
+  alias: skillup-frontend
+  version: "0.1.0"
+  repository: "file://../starter"
+  condition: global.skillup_frontend

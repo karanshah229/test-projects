@@ -1,0 +1,253 @@
+replicaCount: 1
+
+nameOverride: ''
+# --  Always use fullnameOverride in referer charts
+fullnameOverride: ''
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: false
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ''
+
+service:
+  # --  set this at each application level to override serive type. It can be NodePort or ClusterIP
+  type: NodePort
+  # --  set this at each application level to override. Defaults to 80
+  port: 80
+  # -- service annotations, set this as each application level
+  annotations: {}
+
+# -- set this at each application level.
+servicemonitor:
+  # -- set `true` to enable Prometheus to scrape your application for metrics
+  enabled: false
+  # -- Port number at which metrics are exposed in container
+  port: 9000
+  # -- Service targetPort name
+  targetPort: http
+  # -- Path at which metrics is served
+  metricsPath: '/metrics'
+
+# -- set this at each application level
+ingress:
+  internal:
+    # -- ingress name suffix to append to fullname
+    nameSuffix: ''
+    # -- `true` creates Ingress resource
+    enabled: false
+    # -- Use annotations to set className, Ignore this
+    className: ''
+    # -- sets ingress annotations for the ingress resource
+    annotations: {}
+    # -- sets hosts [] with hostname, path
+    # set host for static values or tplHost for dynamic values that refers other values from values file
+    hosts:
+      - host: chart-example.local
+        tplHost: ""
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+autoscaling:
+  # -- set `true` to enable hpa. set at each application level
+  enabled: false
+  # -- set min replica. set at each application level
+  minReplicas: 1
+  # -- set max replica. set at each application level
+  maxReplicas: 100
+  # -- set targetCPUUtilizationPercentage or targetMemoryUtilizationPercentage. set at each application level
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+  # -- You can add external metrics to use for scaling. set at each application level
+  externalMetrics: []
+  # - type: External
+  #   external:
+  #     metricName: alb-request-count-candidate-site
+  #     metricSelector:
+  #       matchLabels:
+  #         kube_namespace: preview
+  #         kube_service: hr-candidate-site
+  #     targetAverageValue: '50'
+
+# -- set at each application level or only at global. check global.nodeSelector
+nodeSelector: {}
+# -- set at each application level or only at global. check global.tolerations
+tolerations: []
+# -- set at each application level or only at global. check global.affinity
+affinity: {}
+# -- set at each application level only
+volumes: []
+
+app:
+  # -- creates k8s service resource if set to `true`
+  serviceRequired: true
+  # -- adds envFrom configMap or secrets
+  envFrom: []
+  # - configMapRef:
+      # -- configMap or secrets name
+      # name: starter-config
+  # -- sets the container `command`
+  command:
+  - 'sleep'
+  # -- sets pod terminationGracePeriodSeconds
+  terminationGracePeriodSeconds: 30
+  livenessProbe:
+    # --  enables livenessProbe for pod
+    enabled: false
+    # -- livenessProbe check path
+    path: /
+    #  path: '/?query=%7B__typename%7D'
+    # -- eg: Adding httpHeaders for probes
+    httpGet:
+     httpHeaders: []
+    #    - name: apollo-require-preflight
+    #      value: 'true'
+
+    initialDelaySeconds: 30
+    periodSeconds: 30
+    timeoutSeconds: 10
+  readinessProbe:
+    # --  enables readinessProbe for pod
+    enabled: false
+    # -- readinessProbe check path
+    path: /
+    #  path: '/?query=%7B__typename%7D'
+    # -- eg: Adding httpHeaders for probes
+    httpGet:
+     httpHeaders: []
+    #    - name: apollo-require-preflight
+    #      value: 'true'
+
+    initialDelaySeconds: 30
+    periodSeconds: 30
+    timeoutSeconds: 10
+  startupProbe:
+    # --  enables startupProbe for pod
+    enabled: false
+    # -- startupProbe check path
+    path: /
+    #  path: '/?query=%7B__typename%7D'
+    # -- eg: Adding httpHeaders for probes
+    httpGet:
+     httpHeaders: []
+    #    - name: apollo-require-preflight
+    #      value: 'true'
+
+    initialDelaySeconds: 30
+    periodSeconds: 30
+    timeoutSeconds: 10
+  # -- application container port number
+  port: 3000
+  # -- application nodeSelector
+  nodeSelector: {}
+  # -- application volumeMounts
+  volumeMounts: []
+  # -- application securityContext
+  securityContext:
+    # -- application securityContext.runAsUser
+    runAsUser: 1000
+    # -- application securityContext.fsGroup
+    fsGroup: 1000
+  # -- application containerSecurityContext
+  containerSecurityContext:
+    # -- application containerSecurityContext.runAsUser
+    runAsUser: 0 # remove this
+    # -- application containerSecurityContext.allowPrivilegeEscalation
+    allowPrivilegeEscalation: false
+  # -- application resources
+  resources:
+    # -- application resources.requests
+    requests:
+      # -- application resources.requests.memory
+      memory: '1025Mi'
+      # -- application resources.requests.cpu
+      cpu: '0.7'
+    # -- application resources.limits
+    limits:
+      # -- application resources.limits.memory
+      memory: '2048Mi'
+      # -- application resources.limits.cpu
+      cpu: '1.5'
+
+# -- app podAnnotations, Applies to each applications, can be set globally also
+podAnnotations: {}
+
+# -- argo rollouts config, Applies to each applications
+argoRollouts:
+  # -- set to `true` to create argo rollout resources
+  enabled: false
+  # -- set to `true` if rollout blue to green should be auto
+  autoPromotionEnabled: false
+  # -- sets the timeout seconds to wait for blue or green to be healthy
+  progressDeadlineSeconds: 900
+  # -- can be `required` or `preferred`
+  antiAffinity: 'preferred'
+  # -- controls blue replicas
+  previewReplica:
+    # -- set to `true` to set blue replica count, if `false`, blue replicas match green replicaCount
+    enabled: false
+    # -- sets blue replicaCount
+    Count: 5
+
+# -- externalSecrets config, Applies to each applications.
+externalSecrets:
+  # -- set to `true` to create externalSecrets resource. Applies to each applications.
+  enabled: false
+  # -- set to aws secremanager alias. Applies to each applications.
+  externalSecretsFrom: []
+
+# -- envVariables can take key value pairs that are static, Applies to each applications, can be set globally also
+envVariables: {}
+# -- tplEnvVariables can take key value pairs that are dynamic, Applies to each applications, can be set globally also
+# eg: `HOST: http://{{ .Release.Namespace }}.{{ .Values.hostedZone }}`
+tplEnvVariables: {}
+
+global:
+  # -- only at global level
+  environment: 'private'
+  # -- only at global level
+  image:
+    # -- docker image ecr registry
+    repository: ""
+    # -- docker image pullPolicy. can Always or IfNotPresent
+    pullPolicy: IfNotPresent
+    # -- docker image tag
+    tag: ""
+  # -- only at global level
+  imagePullSecrets: []
+  # -- only at global level
+  dnsConfig:
+    # -- dns search domain name
+    searches: ['hacker.com']
+
+  # -- envVariables can take key value pairs that are static, Applies to each applications, can be set globally also
+  envVariables: {}
+  # -- tplEnvVariables can take key value pairs that are dynamic, Applies to each applications, can be set globally also
+  # eg: `HOST: http://{{ .Release.Namespace }}.{{ .Values.hostedZone }}`
+  tplEnvVariables: {}
+
+  # -- nginx for frontend applications
+  frontend:
+    nginx:
+      enabled: false
+      # -- nginx docker image
+      image: public.ecr.aws/nginx/nginx:1.19-alpine
+      # -- frontend app basepath
+      basePath: '/'
+      # -- additional nginx location blocks for path rewrite
+      # eg: 
+      # `additionalNginxConfig: |
+      #    location ~* "(^/roles/api/v1/.*$)" {
+      #      resolver 172.20.0.10;
+      #      rewrite ^/roles(.*)$ $1  break;
+      #      proxy_pass $roleUpstream;
+      #    }`
+      additionalNginxConfig: ""

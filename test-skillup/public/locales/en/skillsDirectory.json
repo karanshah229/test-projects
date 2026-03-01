@@ -1,0 +1,19 @@
+{
+    "page_title": "Skills Directory | SkillUp",
+    "error_msg": "Something went wrong. Please try again later.",
+    "page_loader": "Loading skills data",
+    "header": {
+        "search": "What would you like to learn today?",
+        "recent": "Continue where you left off",
+        "popular": "Globally In Demand Skills",
+        "all": "All skills"
+    },
+    "search":{
+        "placeholder_text": "Angular",
+        "result_title": "Search Results",
+        "no_results_title": "No results found for {{searchInput}}",
+        "no_results_desc": "Oops! Looks like '{{searchInput}}' hasn't joined our lineup yet. We'll work on bringing it to you. Till then, there's a whole world of coding knowledge to explore in our extensive collection of skills",
+        "no_skills": "No skills found"
+    },
+    "filter_aria_label": "{{jobRoleName}} Job Family Filter"
+}

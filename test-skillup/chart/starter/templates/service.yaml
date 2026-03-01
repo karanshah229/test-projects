@@ -1,0 +1,63 @@
+{{- if .Values.app.serviceRequired }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "starter.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "starter.labels" . | nindent 4 }}
+  annotations:
+  {{- if .Values.app.startupProbe.enabled }}
+    alb.ingress.kubernetes.io/healthcheck-path: {{ .Values.app.startupProbe.path }}
+  {{- end }}
+  {{- with .Values.service.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    {{- if and .Values.servicemonitor.enabled (ne .Values.servicemonitor.targetPort "http" )}}
+    - port: {{ .Values.servicemonitor.port }}
+      targetPort: {{ .Values.servicemonitor.port }}
+      protocol: TCP
+      name: metrics
+    {{- end }}
+  selector:
+    {{- include "starter.selectorLabels" . | nindent 4 }}
+---
+{{- if .Values.argoRollouts.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "starter.fullname" . }}-blue
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "starter.labels" . | nindent 4 }}
+  annotations:
+  {{- if .Values.app.startupProbe.enabled }}
+    alb.ingress.kubernetes.io/healthcheck-path: {{ .Values.app.startupProbe.path }}
+  {{- end }}
+  {{- with .Values.service.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    {{- if and .Values.servicemonitor.enabled (ne .Values.servicemonitor.targetPort "http" )}}
+    - port: {{ .Values.servicemonitor.port }}
+      targetPort: {{ .Values.servicemonitor.port }}
+      protocol: TCP
+      name: metrics
+    {{- end }}
+  selector:
+    {{- include "starter.selectorLabels" . | nindent 4 }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,93 @@
+// TODO: Convert this into a PolarGridContainer component
+.polarGrid {
+  .highcharts-container {
+    padding-top: var(--hr-spacing-05);
+  }
+  .highcharts-grid.highcharts-yaxis-grid.highcharts-radial-axis-grid path:nth-child(even) {
+    stroke-dasharray: none;
+  }
+  .highcharts-grid.highcharts-yaxis-grid.highcharts-radial-axis-grid path:nth-child(0) {
+    stroke: var(--hr-neutral-10);
+  }
+  .highcharts-legend {
+    display: none;
+  }
+}
+
+.polarGridV2 {
+  .highcharts-container {
+    svg .highcharts-tooltip {
+      display: none;
+    }
+  }
+  .highcharts-grid.highcharts-yaxis-grid.highcharts-radial-axis-grid path:nth-child(2) {
+    fill: var(--hr-neutral-0);
+  }
+}
+
+.disableLineSeriesEndPointColor {
+  .highcharts-color-end-point {
+    fill: none;
+    stroke: none;
+  }
+}
+
+.disableLegendInteraction {
+  .highcharts-legend {
+    pointer-events: none;
+  }
+}
+
+.skillProgressChart {
+  @extend .disableLineSeriesEndPointColor;
+  min-width: 550px;
+  .highcharts-container {
+    padding-top: var(--hr-spacing-02);
+  }
+  .highcharts-grid.highcharts-yaxis-grid {
+    display: none;
+  }
+}
+
+.conceptsBarChart {
+  @extend .disableLegendInteraction;
+  margin-top: calc(-1 * var(--hr-spacing-07));
+  min-width: 500px;
+  .highcharts-series-0 rect {
+    fill: var(--hr-neutral-0);
+    outline: 1px dashed var(--hr-neutral-30) !important;
+    outline-offset: calc(-0.5 * var(--hr-spacing-01));
+  }
+  .highcharts-legend {
+    margin-left: calc(-1 * var(--hr-spacing-06));
+  }
+  .highcharts-legend-item {
+    .strong_concepts_label {
+      margin-left: var(--hr-spacing-12);
+      margin-right: calc(-1 * var(--hr-spacing-05));
+      width: 150px;
+    }
+    .weak_concepts_label {
+      margin-left: calc(-1 * var(--hr-spacing-02));
+      width: 210px;
+    }
+    div:nth-child(1) {
+      margin-left: 10px;
+    }
+    div:nth-child(2) {
+      padding: var(--hr-spacing-02);
+    }
+  }
+}
+
+.centered-highcharts-data-label {
+  .highcharts-data-label span {
+    text-align: center;
+  }
+}
+
+.hide-legend {
+  .highcharts-legend {
+    display: none;
+  }
+}

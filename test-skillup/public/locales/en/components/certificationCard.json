@@ -1,0 +1,18 @@
+{
+    "body": {
+        "skill_one": "{{count}} skill",
+        "skill_other": "{{count}} skills",
+        "separator": " • ",
+        "minutes": "mins",
+        "skill_match": "{{count}}% skill match",
+        "progressbar_aria_label": "Skill match progressbar",
+        "prerequisite_one": "{{count}} prerequisite to unlock",
+        "prerequisite_other": "{{count}} prerequisites to unlock",
+        "prerequisites_met": "Prerequisites met",
+        "certified": "Certified",
+        "reattempt_in_days_one": "Re-attempt available in {{count}} day",
+        "reattempt_in_days_other": "Re-attempt available in {{count}} days",
+        "reattempt_in_hours_one": "Re-attempt available in {{count}} hour",
+        "reattempt_in_hours_other": "Re-attempt available in {{count}} hours"
+    }
+}

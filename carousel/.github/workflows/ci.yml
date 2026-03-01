@@ -1,0 +1,56 @@
+name: CI
+
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+
+permissions: read-all
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        permissions:
+            contents: read
+            packages: read
+            # To report GitHub Actions status checks
+            statuses: write
+
+        strategy:
+            matrix:
+                node-version: ["20"]
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  # super-linter needs the full git history to get the
+                  # list of files that changed across commits
+                  fetch-depth: 0
+
+            - name: Setup PNPM
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8.8.0
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "pnpm"
+
+            - name: Install dependencies
+              run: pnpm install --prefer-frozen-lockfile --frozen-lockfile
+              env:
+                  CI: true
+
+            - name: Create build
+              run: pnpm build
+
+            - name: Check ESLint and Prettier
+              uses: super-linter/super-linter@v6.3.0
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  VALIDATE_TYPESCRIPT_ES: true

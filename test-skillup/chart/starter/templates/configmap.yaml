@@ -1,0 +1,16 @@
+{{- $envVariables := mustMergeOverwrite .Values.global.envVariables .Values.envVariables -}}
+{{- $tplEnvVariables := mustMergeOverwrite .Values.global.tplEnvVariables .Values.tplEnvVariables -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "starter.fullname" . }}-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "starter.labels" . | nindent 4 }}
+data:
+  {{- if $envVariables }}
+  {{- toYaml $envVariables | nindent 2 }}
+  {{- end }}
+  {{- if $tplEnvVariables }}
+  {{- tpl (toYaml $tplEnvVariables | nindent 2) . }}
+  {{- end }}

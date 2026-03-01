@@ -1,0 +1,21 @@
+{
+  "npmClient": "pnpm",
+  "useWorkspaces": true,
+  "packages": [
+    "packages/*"
+  ],
+  "command": {
+    "version": {
+      "exact": true
+    },
+    "publish": {
+      "npmClient": "npm",
+      "allowBranch": [
+        "canary",
+        "next-12-3-2"
+      ],
+      "registry": "https://registry.npmjs.org/"
+    }
+  },
+  "version": "12.3.4"
+}

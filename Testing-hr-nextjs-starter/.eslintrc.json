@@ -1,0 +1,88 @@
+{
+  "extends": [
+    // next.js eslint config
+    "next/core-web-vitals",
+
+    // airbnb config
+    "airbnb",
+    "airbnb/hooks",
+    "airbnb/whitespace",
+
+    // typescript rules for airbnb config
+    "airbnb-typescript",
+
+    // react doesn't need to be in scope for v17+
+    "plugin:react/jsx-runtime",
+
+    // disable rules that conflict with prettier
+    "prettier"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    // Required for mocking in tests
+    // https://github.com/vercel/next.js/discussions/23034#discussioncomment-478482
+    "global-require": "off",
+
+    // Enhanced version of the AirBnb rule
+    // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js#L146-L149
+    "import/order": [
+      "error",
+      {
+        "groups": [["builtin", "external"], "internal", ["parent", "sibling"], "type"],
+        "newlines-between": "always",
+        "pathGroups": [{ "pattern": "src/**", "group": "internal", "position": "after" }],
+        "alphabetize": { "order": "asc", "caseInsensitive": false }
+      }
+    ],
+
+    // React team suggests that named exports are better.
+    // https://twitter.com/dan_abramov/status/926825195721158656
+    "import/prefer-default-export": "off",
+
+    // Required for valid use cases, example:
+    // https://nextjs.org/docs/advanced-features/custom-app
+    "react/jsx-props-no-spreading": "off",
+
+    // Required for valid use cases, example:
+    // https://stitches.dev/docs/server-side-rendering
+    "react/no-danger": "off",
+
+    // defaultProps will eventually get deprecated
+    // https://twitter.com/dan_abramov/status/1133878326358171650
+    // It's better to use object default values.
+    "react/require-default-props": "off",
+
+    // Complements the "import/order" rule
+    // Multiple imports on the same line are alphabetized
+    "sort-imports": ["error", { "ignoreDeclarationSort": true }],
+
+    // Disable the rule for test files and files in the "src/tests/" directory
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "test.{ts,tsx}", // repos with a single test file
+          "test-*.{ts,tsx}", // repos with multiple top-level test files
+          "**/*{.,_}{test,spec}.{ts,tsx}", // tests where the extension or filename suffix denotes that it is a test
+          "**/jest.config.ts", // jest config
+          "**/jest.setup.ts", // jest setup
+          "**/prettier.config.js", // prettier config
+          "**/prettier.config.ts", // prettier config
+          "**/setupTests.ts" // tests setup
+        ]
+      }
+    ],
+
+    "react/no-unknown-property": [
+      2,
+      {
+        "ignore": ["jsx", "global"]
+      }
+    ]
+  },
+  "settings": {
+    "import/internal-regex": "^ui-icons|^ui-kit"
+  }
+}

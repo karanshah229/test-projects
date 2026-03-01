@@ -1,0 +1,16 @@
+global:
+  environment: qa
+  image: 
+    repository: 563410562074.dkr.ecr.us-east-1.amazonaws.com/skillup-frontend
+  dnsConfig:
+    searches: ['qahacker.com']
+
+
+skillup-frontend:
+  argoRollouts:
+    enabled: true
+  envVariables:
+    NEXT_PUBLIC_CDN_URL: "d1ncy0v3du7k5q.cloudfront.net"
+    NEW_RELIC_APP_NAME: "skillup-frontend-qa"
+  tplEnvVariables:
+    BACKEND_URL:  "https://appgateway-{{ .Release.Namespace }}.qa.hackerrank.link"

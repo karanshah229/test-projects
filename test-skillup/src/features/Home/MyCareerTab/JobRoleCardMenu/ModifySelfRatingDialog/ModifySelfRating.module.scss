@@ -1,0 +1,129 @@
+.selfRating {
+  &__layout {
+    padding-inline: 28px;
+    overflow: auto;
+  }
+  &__formHeading {
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 150%;
+  }
+}
+
+.modifySelfRatingDialogContent {
+  border-radius: var(--hr-spacing-04);
+  min-width: 950px;
+
+  &__bodyDisabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  > div:nth-child(2) {
+    border-bottom-left-radius: var(--hr-spacing-04);
+    border-bottom-right-radius: var(--hr-spacing-04);
+  }
+
+  > div:nth-child(1) {
+    border-top-left-radius: var(--hr-spacing-04);
+    border-top-right-radius: var(--hr-spacing-04);
+    display: flex;
+    padding: 0;
+    max-height: 550px;
+    overflow: hidden;
+  }
+
+  &__btn {
+    min-width: 85px;
+    min-height: 42px;
+  }
+}
+
+.selfRatingAccordionItem {
+  border: none !important;
+  border-radius: 8px;
+  background: #f8fafc;
+  &__alertContainer {
+    border-radius: var(--hr-spacing-03);
+    color: #54606b;
+    background: #eef2f6;
+    font-size: var(--hr-spacing-03);
+    margin-left: 44px;
+    line-height: normal;
+  }
+}
+
+.selfRatingAccordionTrigger {
+  &[data-state='open'] {
+    .proficiencyHidden {
+      display: none;
+    }
+  }
+  &.disabled {
+    opacity: 0.5;
+  }
+  > svg {
+    width: 25px;
+    height: 25px;
+    color: #6b8cad;
+    align-items: end;
+  }
+  &__skill {
+    text-align: left;
+    font-size: var(--hr-spacing-04);
+    font-style: normal;
+    font-weight: 400;
+  }
+  &__proficiency {
+    color: #698bad;
+    text-align: right;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+  }
+}
+
+.selfRatingOptionItem {
+  margin: var(--hr-spacing-01) 0;
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+
+  > div:first-child {
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    button {
+      border-color: rgba(153, 153, 153, 0.3);
+      width: var(--hr-spacing-04);
+      height: var(--hr-spacing-04);
+      &[data-state='checked'] {
+        border-color: rgba(153, 153, 153, 0.6);
+        span {
+          background-color: #4e8854;
+          width: 10px;
+          height: 10px;
+        }
+      }
+      &:hover {
+        border-color: rgba(153, 153, 153, 0.6);
+      }
+    }
+  }
+
+  &__proficiency {
+    color: #39424e;
+    font-size: var(--hr-spacing-03);
+    font-weight: 600;
+    text-transform: capitalize;
+    line-height: 17.06px;
+  }
+  &__description {
+    color: #5c6672;
+    font-size: var(--hr-spacing-03);
+    font-weight: 400;
+    line-height: normal;
+  }
+}

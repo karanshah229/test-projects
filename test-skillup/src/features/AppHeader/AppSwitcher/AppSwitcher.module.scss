@@ -1,0 +1,12 @@
+.appSwitcher {
+  button,
+  button:hover,
+  button:active,
+  button[data-state='open'] {
+    background-color: inherit; // TODO: Overriden styles will be removed when dark theme is supported in HRDS
+  }
+}
+
+.selectedMenuItem {
+  background-color: var(--hr-neutral-90);
+}

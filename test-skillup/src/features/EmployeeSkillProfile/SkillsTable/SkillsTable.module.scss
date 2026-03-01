@@ -1,0 +1,19 @@
+.infoIcon {
+  margin-top: calc(-1 * var(--hr-spacing-01));
+  width: var(--hr-spacing-05);
+  height: var(--hr-spacing-05);
+}
+
+.toolTipContent {
+  padding: var(--hr-spacing-02) 0;
+  text-align: center;
+  a {
+    color: white;
+  }
+}
+
+.ratingChange {
+  span {
+    margin-right: var(--hr-spacing-04);
+  }
+}

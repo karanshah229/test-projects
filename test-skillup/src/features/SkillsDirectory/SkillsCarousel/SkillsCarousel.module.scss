@@ -1,0 +1,68 @@
+.carousel_trigger {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  width: var(--hr-spacing-10);
+  transition: opacity 0.25s ease-in-out;
+  border: none;
+  padding: 0;
+  svg {
+    transition: width 0.25s ease-in-out, height 0.25s ease-in-out;
+  }
+  opacity: 0;
+  color: transparent;
+
+  &:hover {
+    cursor: pointer;
+    svg {
+      width: var(--hr-spacing-07);
+      height: var(--hr-spacing-07);
+    }
+  }
+}
+
+.show_trigger {
+  opacity: 1;
+  color: var(--hr-neutral-0);
+}
+
+.card_container {
+  position: relative;
+  margin-left: 115px;
+  margin-right: 36px;
+
+  &__first {
+    margin-left: var(--hr-spacing-11);
+  }
+
+  &__last {
+    margin-right: 0px;
+  }
+
+  .index {
+    color: #1e2d42;
+    text-shadow: -1px -1px 0 #858b95, 1px -1px 0 #858b95, -1px 1px 0 #858b95, 1px 1px 0 #858b95;
+    font-weight: 600;
+    font-size: 256px;
+    line-height: normal;
+
+    &__sm {
+      font-size: 164px;
+      letter-spacing: -16px;
+    }
+
+    &_container {
+      position: absolute;
+      left: -95px;
+      height: 100%;
+      top: 0;
+      width: 150px;
+      z-index: -1;
+      &__sm {
+        width: 165px;
+        left: -125px;
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+    "page_title": "Welcome | SkillUp",
+    "product_preview": {
+        "text_01": "👋",
+        "text_02": "Welcome to SkillUp, {{name}}!",
+        "text_03": "You’ve been invited as {{article}} {{jobRoleName}}."
+    },
+    "self_rating": {
+        "text_01": "😎",
+        "text_02": "Ready to roll {{jobRoleName}}",
+        "text_03": "Rate your skills for a personalised plan."
+    },
+    "profile_setup": {
+        "text_01": "Building your personalised plan",
+        "text_02": "Setting up your profile",
+        "text_03": "Adding roles, certifications and skills",
+        "text_04": "Almost there"
+      },
+      "next_btn": "Next",
+    "error_toast_msg": "Something went wrong. Please try again later."
+}

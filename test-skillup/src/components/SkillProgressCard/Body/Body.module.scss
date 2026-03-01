@@ -1,0 +1,38 @@
+.skill_card {
+  &__body {
+    min-height: 136px;
+    border-radius: var(--hr-spacing-02);
+    background-size: cover;
+    color: #000;
+    letter-spacing: 0.5px;
+    &__progress_indicator {
+      max-width: 45px;
+      max-height: 45px;
+    }
+
+    &__skill_name {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 22.585px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0;
+    }
+
+    &__proficiency_text {
+      font-size: 12px;
+      font-weight: 400;
+      color: #123854;
+      opacity: 0.7;
+      line-height: normal;
+      letter-spacing: 0;
+      margin-top: 2px;
+    }
+  }
+  &__show_footer {
+    min-height: 160px;
+    border-radius: var(--hr-spacing-04) var(--hr-spacing-04) 0px 0px;
+    box-shadow: 0px 2px 4px 0px #f9f9f9, 0px 2px 4px 0px rgba(249, 249, 249, 0.25);
+  }
+}

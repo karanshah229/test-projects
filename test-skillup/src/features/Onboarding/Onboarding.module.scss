@@ -1,0 +1,55 @@
+@import 'src/styles/animations';
+$progress-bar-size: 300px;
+
+.heading_text {
+  color: var(--hr-neutral-80);
+  font-size: var(--hr-spacing-06);
+  font-weight: 800;
+  line-height: 150%;
+}
+
+.heading_emoji {
+  font-size: var(--hr-spacing-08);
+  line-height: 150%;
+}
+
+.graph_container {
+  background-color: #f7f9fd;
+}
+
+.heading_container {
+  padding-bottom: var(--hr-spacing-05);
+  border-bottom: 1px solid #dedede;
+}
+
+.loading_icon {
+  width: $progress-bar-size;
+  height: $progress-bar-size;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+}
+
+.progress_bar {
+  width: 0;
+  background-color: #979797;
+  transition: width 0.1s linear;
+
+  &_container {
+    width: $progress-bar-size;
+    height: var(--hr-spacing-02);
+    background-color: #d9d9d9;
+    border-radius: var(--hr-spacing-01);
+    margin-bottom: var(--hr-spacing-04);
+    overflow: hidden;
+  }
+}
+
+.status_text {
+  font-size: var(--hr-spacing-04);
+  animation: text_blink 2.5s infinite;
+  margin-top: var(--hr-spacing-03);
+}
+
+.self_rating_component {
+  overflow-y: auto;
+}

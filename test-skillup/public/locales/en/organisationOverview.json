@@ -1,0 +1,95 @@
+{
+  "title_tag": "Organisation Insights | SkillUp",
+  "page_header": "Overview",
+  "page_toggle": {
+    "certifications": "Certifications",
+    "skills": "Skills"
+  },
+  "bubble_chart": {
+    "skills": "Skills",
+    "certifications": "Certifications",
+    "certified_employees": "Certified employees",
+    "assessed_employees": "Assessed employees",
+    "description": "Skills Overview Chart",
+    "loader": "Loading Overview Chart",
+    "duration_filter": "Select time period to view skill progress",
+    "unfiltered_fallback": "Skilled superstars in the making...",
+    "filtered_fallback": "No employees have earned the {{proficiencyLabel}} badge yet.",
+    "proficiency_label": "{{proficiencyLabel}}s",
+    "labels": {
+      "constant": "No change",
+      "last_three_months": "in last 3 months"
+    },
+    "filter_labels":{
+      "any": "All Proficiencies",
+      "prebeginner": "Pre-beginners",
+      "beginner": "Beginners",
+      "intermediate": "Intermediates",
+      "expert": "Experts",
+      "aria_label": "Select Duration for Progress Data"
+    }
+  },
+  "table_fallback_text": "No employees found",
+  "overview_table_aria_label": "Overview Table containing certifications or skills breakdown",
+  "certifications_table": {
+    "certifications_header": "Certification",
+    "assessed_employees": "Assessed employees",
+    "certified_employees": "Certified Employees",
+    "loader": "Loading Certifications Table"
+  },
+  "skills_table": {
+    "skills_header": "Skills",
+    "assessed_employees": "Assessed employees",
+    "prebeginner_header": "Pre-beginners",
+    "beginner_header": "Beginners",
+    "intermediate_header": "Intermediates",
+    "expert_header": "Experts",
+    "loader": "Loading Overview Table"
+  },
+  "insights_sidebar": {
+    "header": "Overview",
+    "sub-header": "Skills verified by this certification",
+    "loader": "Loading Insights"
+  },
+  "progress_chart": {
+    "certifications_header": "Certified employees trend",
+    "skills_header": "Assessed employees trend",
+    "certifications_tooltip_header": "Certified employees",
+    "skills_tooltip_header": "Assessed employees",
+    "fallback_text": "Insufficient data",
+    "duration_filter_aria_label": "Select proficiency to filter employees",
+    "duration_filter_labels":{
+      "three_months": "Last 3 months",
+      "six_months": "Last 6 months",
+      "twelve_months": "Last 12 months",
+      "all_time": "All time"
+    }
+  },
+  "leader_board": {
+    "header": "Leaderboard",
+    "aria_label": "Insights Leaderboard Table",
+    "header_tooltip": "Skill Rating",
+    "talent_directory_link": "View complete list in talent directory",
+    "table": {
+      "name_header": "Name",
+      "proficiency_header": "Proficiency",
+      "rating_header": "Skill rating",
+      "profile_header": "Profile",
+      "designation_header": "Designation"
+    },
+    "fallback_text": "No leaders found"
+  },
+  "fallback_state": {
+    "btn_text": "Go To Talent Directory",
+    "certifications":{
+      "header": "Certified superstars in the making...",
+      "sub_header": "Currently, there are no certified employees. To get your employees certified, send them an assessment from the talent directory."
+    },
+    "skills":{
+      "header": "Exceptionally skilled employees in the making...",
+      "sub_header": "Currently no employees have earned a skill. To get started, you can send them skill badge assessments from the talent directory."
+    }
+    },
+
+  "page_loader": "Loading Organisation Overview"
+}

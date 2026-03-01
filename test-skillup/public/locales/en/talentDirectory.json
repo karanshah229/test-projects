@@ -1,0 +1,53 @@
+{
+  "TitleTag": "Employee Listing | SkillUp",
+  "Header": {
+    "header_title_text": "Talent Directory"
+  },
+  "Filters": {
+    "filters_title": "Filters",
+    "filters_clear_all_text": "Clear All",
+    "designations_title": "Designations",
+    "designations_filter_checkbox_id": "{{designationID}}-designation-filter",
+    "certifications_title": "Certifications",
+    "certifications_filter_checkbox_id": "{{certificationID}}-certification-filter",
+    "skills_title": "Skills",
+    "skills_filter_skill_checkbox_aria_label": "{{skillName}} Skill Filter",
+    "skills_filter_skill_checkbox_id": "{{skillID}}-skill-filter",
+    "skills_filter_proficiency_checkbox_aria_label": "{{skillName}} {{proficiency}} Skill Proficiency Filter",
+    "skills_filter_proficiency_checkbox_id": "{{skillID}}-{{proficiency}}-skill-proficiency-filter"
+  },
+  "Table": {
+    "name": "Name",
+    "empty_fallback": "You will start seeing employees here as and when they are onboarded.",
+    "filtered_fallback": "No matches found. Try widening your search.",
+    "aria_label": "Employee Listing Table",
+    "headers": {
+      "name": "Name",
+      "current_designation": "Current Designation",
+      "certifications": "Certifications",
+      "skills": "Skills",
+      "profile": "Profile"
+    },
+    "body": {
+      "profile_icon_button_aria_label": "Open {{empAttributesName}}'s Skill Profile"
+    }
+  },
+  "SendInvites": {
+    "send_invites_dialog_trigger": "Send Invites",
+    "dialog_header_title": "Choose an assessment",
+    "dialog_body_loader": "Fetching Assessments",
+    "select_name": "Assessments Filter",
+    "select_label": "Published Assessments",
+    "select_aria_label": "Select an assessment to send to employees",
+    "footer_cancel_btn": "Cancel",
+    "footer_next_btn": "Next"
+  },
+  "Export": {
+    "export_button_text": "Export",
+    "export_error": "Error exporting list of canddiates. Try again in some time or contact support if this persists"
+  },
+  "Search": {
+    "search_placeholder": "Search name",
+    "search_aria_label": "Search input to search and filter the employees"
+  }
+}

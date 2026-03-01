@@ -1,0 +1,9 @@
+{
+	"name": "hr_counterexample_nextjs_starter",
+	"version": "1.0.0",
+	"description": "Hackerrank CounterExample for Next.js Starter",
+	"main": "index.js",
+	"author": "Karan Shah",
+	"license": "MIT",
+	"private": false
+}

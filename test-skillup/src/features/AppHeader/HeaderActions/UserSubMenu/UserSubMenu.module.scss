@@ -1,0 +1,37 @@
+.headerAccountSubmenu {
+  margin: calc(calc(var(--hr-spacing-05) + 4px) * -1) calc(var(--hr-spacing-06) * -1); // reset padding from library
+  min-width: 200px;
+  max-width: 400px;
+
+  .top {
+    padding: var(--hr-spacing-05);
+    border-bottom: 1px solid var(--hr-neutral-10);
+  }
+
+  .userName {
+    font-weight: 600;
+    line-height: 18px;
+    word-break: break-all;
+  }
+
+  .bottom {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      padding: var(--hr-spacing-03) var(--hr-spacing-05);
+      cursor: pointer;
+
+      &:hover {
+        background: hsl(140, 60%, 95%);
+      }
+
+      &[disabled] {
+        // &:disabled doesn't work
+        pointer-events: none;
+        background-color: var(--hr-neutral-10);
+        opacity: 0.5;
+      }
+    }
+  }
+}

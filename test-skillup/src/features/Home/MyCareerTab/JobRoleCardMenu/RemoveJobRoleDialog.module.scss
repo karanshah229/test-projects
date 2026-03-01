@@ -1,0 +1,25 @@
+.removeCardDialog {
+  &__content {
+    border-radius: var(--hr-spacing-04);
+    max-width: 420px;
+    // To set border radius for Dialog's footer
+    > div:nth-child(2) {
+      border-bottom-left-radius: var(--hr-spacing-04);
+      border-bottom-right-radius: var(--hr-spacing-04);
+    }
+  }
+  &__btn {
+    min-width: 85px;
+    min-height: 42px;
+  }
+  &__bodyHeading {
+    color: var(--neutral-90, #0a0a0b);
+    font-size: var(--hr-spacing-05);
+    font-weight: 600;
+    line-height: 28px;
+    letter-spacing: -0.5px;
+  }
+  &__bodyText {
+    color: var(--neutral-90, #0a0a0b);
+  }
+}

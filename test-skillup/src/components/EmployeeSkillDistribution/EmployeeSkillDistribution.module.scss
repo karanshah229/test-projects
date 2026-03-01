@@ -1,0 +1,10 @@
+.toolTipContainer {
+  color: var(--hr-neutral-70);
+  border-radius: var(--hr-spacing-03);
+  box-shadow: 0 0 var(--hr-spacing-04) 0 var(--hr-neutral-10);
+  padding: var(--hr-spacing-03);
+
+  .skillText {
+    font-size: var(--hr-spacing-03);
+  }
+}

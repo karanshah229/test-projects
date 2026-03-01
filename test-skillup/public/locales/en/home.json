@@ -1,0 +1,91 @@
+{
+    "title_tag": "SkillUp | Home",
+    
+    "page_loader": "Loading...",
+
+    "side_menu_aria_label": "Home Page SideMenu with option items",
+
+    "carousel": {
+        "left_button_title": "Carousel Left Button",
+        "right_button_title": "Carousel Right Button",
+        "left_button_id": "carousel-left-button",
+        "right_button_id": "carousel-right-button"
+    },
+
+    "profile": {
+        "certification_alt_text": "Certification Icon",
+        "badge_alt_text": "Badge Icon",
+        "avatar_alt_text": "Avatar"
+    },
+    "my_career": {
+        "title": "My Career",
+        "aria_label": "My Career Side Menu Item"
+    },
+    "assigned_to_me": {
+        "title": "Assigned to Me",
+        "aria_label": "Assigned to Me Side Menu Item",
+        "headers":{
+            "overdue": "Overdue",
+            "upcoming": "Upcoming",
+            "completed": "Completed"
+        },
+        "fallback": {
+            "header": "No skills/certifications assigned",
+            "btn_text": "Explore Now"
+        }
+    },
+    "job_role_card": {
+        "view_all_skill_cards": "View All",
+        "collapse_skill_cards": "Collapse",
+        "next_goal": "Your Next Goal",
+        "learning_progress": "Your learning plan",
+        "earn_certification": "Earn your certification",
+        "role_name": "{{jobRoleName}} Role"
+    },
+    "explore_job_roles": {
+        "add_role_text": "Add a role to up-skill towards",
+        "explore_btn": "Explore Roles"
+    },
+    "certified_job_role": {
+        "congratulations_heading": "Congratulations {{jobRoleSkillName}} Alchemist",
+        "congratulations_sub_heading": "For being officially certified with magic happening in the code!",
+        "archive_btn": "Archive completed card",
+        "view_result_btn": "View Detailed Result",
+        "share_btn": "Share"
+    },
+
+    "job_role_card_menu": {
+        "trigger_label": "Job Role Card Menu Trigger Icon",
+        "content_label": "Job Role Card Menu Content"
+    },
+
+    "pin_card": {
+        "title": "Pin Card",
+        "success_toast_message": "{{jobRoleName}} Role card pinned",
+        "error_toast_message": "Error pinning the card"
+    },
+
+    "modify_self_rating": {
+        "title": "Modify Self Rating",
+        "success_toast_message": "{{jobRoleName}} Role card self rating modified",
+        "error_toast_message": "Error modifying the self rating",
+        "dialog_heading": "Modify your self rating",
+        "dialog_aria_description": "Modify Self Rating Dialog Content",
+        "dialog_cancel_btn": "Cancel",
+        "dialog_save_btn": "Save",
+        "radio_group_name": "self_rating",
+        "radio_group_aria_label": "Self Rating Radio Group",
+        "disable_alert": "Proficiency auto-selected based on your previous assessment"
+    },
+    
+    "remove_card": {
+        "title": "Remove Card",
+        "success_toast_message": "Card removed from interests",
+        "error_toast_message": "Error removing card from interests",
+        "dialog_heading": "Remove card from (interests)?",
+        "dialog_body": "Removing the card will not affect your learning progress. The card can be added back at anytime from the roles tab.",
+        "dialog_aria_description": "Remove Card Dialog Content",
+        "dialog_cancel_btn": "Cancel",
+        "dialog_remove_btn": "Remove"
+    }
+}

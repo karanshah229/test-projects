@@ -1,0 +1,8 @@
+.incline {
+  color: var(--hr-brand-70);
+}
+
+.decline {
+  transform: scaleY(-1);
+  color: var(--hr-critical-70);
+}

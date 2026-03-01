@@ -1,0 +1,50 @@
+.skill {
+  &_card {
+    border-radius: var(--hr-spacing-02);
+    background-size: cover;
+    color: #0c0c0c;
+    font-size: 18px;
+    line-height: normal;
+    height: 245px;
+    width: 211px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    @media screen and (min-width: 1366px) {
+      height: 265px;
+      width: 228px;
+    }
+
+    @media screen and (min-width: 1440px) {
+      height: 231px;
+      width: 199px;
+      font-size: 16px;
+    }
+
+    @media screen and (min-width: 1728px) {
+      height: 242px;
+      width: 209px;
+      font-size: 16px;
+    }
+
+    @media screen and (min-width: 1920px) {
+      height: 237px;
+      width: 204px;
+      font-size: 14px;
+    }
+  }
+  &_progress_bar {
+    max-width: 65px;
+    max-height: 65px;
+
+    @media screen and (min-width: 1366px) {
+      max-width: 60px;
+      max-height: 60px;
+    }
+  }
+  &_name {
+    font-weight: 600;
+  }
+}

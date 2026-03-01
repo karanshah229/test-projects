@@ -1,0 +1,72 @@
+{{- if .Values.app.redis }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "starter.fullname" . }}-redis
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.hackerrank.com/name: {{ include "starter.fullname" . }}-redis
+    app.kubernetes.io/name: {{ include "starter.fullname" . }}-redis
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "starter.fullname" . }}-redis
+      app.kubernetes.io/namespace: {{ .Release.Namespace }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "starter.fullname" . }}-redis
+        app.kubernetes.io/namespace: {{ .Release.Namespace }}
+      annotations: {}
+    spec:
+      volumes: []
+      containers:
+        - name: {{ include "starter.fullname" . }}-redis
+          image: public.ecr.aws/g0f8a3x6/redis:7.0.8-alpine
+          ports:
+            - name: redis
+              containerPort: 6379
+              protocol: TCP
+          env:
+            - name: SESSION_TITLE
+              value: {{ .Release.Namespace }}-{{ include "starter.fullname" . }}-redis
+            - name: POD_NAMESPACE
+              value: {{ .Release.Namespace }}
+          resources:
+            limits:
+              cpu: 10m
+              memory: 64Mi
+            requests:
+              cpu: 1m
+              memory: 32Mi
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      securityContext: {}
+      dnsConfig:
+        searches:
+          - hacker.com
+  strategy:
+    type: Recreate
+  revisionHistoryLimit: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "starter.fullname" . }}-redis
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.hackerrank.com/name: {{ include "starter.fullname" . }}-redis
+    app.kubernetes.io/name: {{ include "starter.fullname" . }}-redis
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 6379
+      targetPort: 6379
+  selector:
+    app.kubernetes.io/name: {{ include "starter.fullname" . }}-redis
+  type: ClusterIP
+---
+{{- end }}

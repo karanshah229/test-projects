@@ -1,0 +1,24 @@
+:root {
+  --sklup-prebeginner-color: var(--hr-neutral-40);
+  --sklup-beginner-color: var(--hr-blue-40);
+  --sklup-intermediate-color: var(--hr-success-40);
+  --sklup-expert-color: var(--hr-brand-40);
+  --sklup-chart-positive-color: var(--hr-brand-10);
+  --sklup-chart-neutral-color: var(--hr-neutral-5);
+  --sklup-chart-negative-color: var(--hr-critical-10);
+  --sklup-regular-neutral-color: #000;
+  --sklup-icon-color: #7b8e9a;
+}
+
+.removeDialogDivBorders {
+  div {
+    border-top: none;
+    border-bottom: none;
+  }
+}
+
+.removeTableHeaderBorders {
+  th {
+    border: none;
+  }
+}

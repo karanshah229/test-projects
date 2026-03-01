@@ -1,0 +1,15 @@
+import App, { AppContext, AppInitialProps, AppProps } from "next/app";
+
+export default function MyApp({ Component, pageProps }: AppProps) {
+	return <Component {...pageProps} />;
+}
+
+MyApp.getInitialProps = async (
+	context: AppContext
+): Promise<AppInitialProps> => {
+	console.log("_app.getInitialProps running");
+
+	const ctx = await App.getInitialProps(context);
+
+	return { ...ctx };
+};

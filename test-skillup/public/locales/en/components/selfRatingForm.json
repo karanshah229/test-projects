@@ -1,0 +1,21 @@
+{
+  "proficiencies_description": {
+    "prebeginner": "I dont know the basics of this skill.",
+    "beginner": "I'm just starting to grasp the basics, haven't worked on real-world projects yet.",
+    "intermediate": "I've got a good handle on things, have worked on real projects with some help.",
+    "expert": "I've really mastered this skill, tackled plenty of real projects on my own."
+  },
+  "back_btn": "Back",
+  "next_btn": "Next",
+  "skill_index_bar_aria_label": "Skill Index Progress Bar",
+  "index_text": "{{index}} of {{length}}",
+  "question_text": {
+    "common": "Finally, what about",
+    "last": "How would you rate your proficiency in",
+    "punctuation": "?"
+  },
+  "self_rating_form_label": "Self Rating Form",
+  "auto_saved": "Proficiency auto-selected based on your previous response.",
+  "verified_proficiency": "Proficiency auto-selected based on your previous assessment.",
+  "error_toast_msg": "Couldn't update the proficiency! Please retry."
+}

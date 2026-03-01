@@ -1,0 +1,17 @@
+.avatarLayout {
+  color: var(--hr-neutral-0);
+  background-color: #0a0a0b;
+  border: 2.5px solid var(--hr-neutral-0);
+  border-radius: 50%;
+
+  .avatarImage {
+    border-radius: 50%;
+  }
+
+  .avatarInitials {
+    letter-spacing: -2px;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 36px;
+  }
+}

@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: ['18']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch Private Actions
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          repository: interviewstreet/actions
+          ssh-key: ${{ secrets.ACTIONS_SSH_KEY }}
+          path: .actions
+
+      - name: Setup SSH
+        uses: ./.actions/shell/ssh-agent
+        with:
+          ssh-private-key: ${{ secrets.ACTIONS_SSH_KEY }}
+
+      - name: Fetch master branch
+        run: git fetch origin master:master --update-head-ok
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --immutable --immutable-cache
+        env:
+          CI: true
+
+      - name: Create build
+        run: yarn run build
+
+      - name: Check ESLint and Prettier
+        uses: wearerequired/lint-action@v2
+        with:
+          eslint: true
+          eslint_extensions: js,ts,jsx,tsx
+          prettier: true
+
+      - name: Validate the JSON in locale files
+        run: yarn run validate-locales
+
+      - name: Evaluate tests
+        if: ${{ github.ref_name == 'master' }}
+        run: yarn run test:ci
+
+      - name: Generate test coverage report
+        if: ${{ github.ref_name != 'master' }}
+        uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+          package-manager: yarn
+          skip-step: install

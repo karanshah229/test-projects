@@ -1,0 +1,16 @@
+.progress {
+  /* 2 * pi * r */
+  --circumference: calc(2 * 3.14159265359 * 9);
+  transform: rotate(270deg);
+  transform-origin: center;
+  stroke-dasharray: var(--circumference);
+  // transition: stroke-dashoffset 500ms ease-out;
+}
+
+.progressText {
+  font-size: 6px;
+  color: var(--sklup-regular-neutral-color);
+  letter-spacing: normal;
+  text-align: center;
+  line-height: normal;
+}

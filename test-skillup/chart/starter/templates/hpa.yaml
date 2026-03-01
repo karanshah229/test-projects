@@ -1,0 +1,46 @@
+{{- $autoscaling := .Values.autoscaling }}
+{{- $argoRollouts := .Values.argoRollouts }}
+{{- $enableArgoRollouts := $argoRollouts.enabled }}
+{{- if $autoscaling.enabled }}
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "starter.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "starter.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    {{- if $enableArgoRollouts }}
+    apiVersion: argoproj.io/v1alpha1
+    kind: Rollout
+    {{- else }}
+    apiVersion: apps/v1
+    kind: Deployment
+    {{- end }}
+    name: {{ include "starter.fullname" . }}
+  minReplicas: {{ $autoscaling.minReplicas }}
+  maxReplicas: {{ $autoscaling.maxReplicas }}
+  metrics:
+    {{- if $autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ $autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+    {{- if $autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ $autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if $autoscaling.externalMetrics }}
+    {{- with $autoscaling.externalMetrics }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- end }}
+{{- end }}

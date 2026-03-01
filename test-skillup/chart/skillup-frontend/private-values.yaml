@@ -1,0 +1,15 @@
+global:
+  environment: private
+  image: 
+    repository: 563410562074.dkr.ecr.us-east-1.amazonaws.com/skillup-frontend
+  dnsConfig:
+    searches: ['hacker.com']
+
+
+skillup-frontend:
+  replicaCount: 1
+  envVariables:
+    NEXT_PUBLIC_CDN_URL: "d1ncy0v3du7k5q.cloudfront.net"
+    NEW_RELIC_APP_NAME: "skillup-frontend-private"
+  tplEnvVariables:
+    BACKEND_URL:  "https://appgateway-{{ .Release.Namespace }}.private.hackerrank.link"

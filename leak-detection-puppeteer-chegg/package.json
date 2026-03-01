@@ -1,0 +1,16 @@
+{
+	"name": "leak-detection-puppeteer-chegg",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"puppeteer": "^20.9.0"
+	},
+  "type": "module"
+}
+

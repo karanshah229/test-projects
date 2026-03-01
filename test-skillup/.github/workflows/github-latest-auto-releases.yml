@@ -1,0 +1,19 @@
+---
+name: 'latest-release'
+
+on:
+  push:
+    tags:
+      - 'production'
+
+jobs:
+  latest-release:
+    name: 'Latest Release'
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - uses: 'marvinpinto/action-automatic-releases@latest'
+        with:
+          repo_token: '${{ github.token }}'
+          prerelease: false
+          automatic_release_tag: 'latest'

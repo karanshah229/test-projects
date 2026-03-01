@@ -1,0 +1,103 @@
+.role_card_layout {
+  border-radius: var(--hr-spacing-04);
+  color: var(--sklup-regular-neutral-color);
+  height: 741px;
+}
+
+.main_heading_style {
+  color: var(--sklup-regular-neutral-color);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.5px;
+}
+
+.carousel {
+  &__layout {
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #fff;
+  }
+  &__control_btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    padding: 0px;
+    cursor: pointer;
+  }
+  &__indicator {
+    height: var(--hr-spacing-02);
+    width: var(--hr-spacing-02);
+    border-radius: var(--hr-spacing-02);
+    cursor: pointer;
+  }
+}
+
+.job_role_card {
+  @extend .role_card_layout;
+  background-color: var(--hr-neutral-0);
+  &__loader {
+    > div {
+      border-radius: 1rem;
+    }
+  }
+  &__leftSection {
+    padding: var(--hr-spacing-08) 30px 68px 30px;
+    border-bottom-left-radius: 1rem;
+    position: relative;
+  }
+  &__rightSection {
+    padding: var(--hr-spacing-08) 108px 68px 82px;
+    overflow: auto;
+  }
+
+  &__next_goal_text {
+    color: #747f95;
+    font-size: var(--hr-spacing-04);
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+  &__role_title_text {
+    @extend .main_heading_style;
+    text-align: center;
+  }
+  &__typography {
+    color: var(--sklup-regular-neutral-color);
+    font-size: var(--hr-spacing-05);
+    font-weight: 600;
+    line-height: var(--hr-spacing-06);
+    letter-spacing: -0.5px;
+  }
+
+  &__expand_skills_btn {
+    color: #315996;
+    // Added to override the above typography's fontweight
+    font-weight: 400;
+  }
+
+  &__menu {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.explore_job_role_card {
+  @extend .role_card_layout;
+  background-color: var(--hr-neutral-0);
+}
+
+.certified_job_role_card {
+  @extend .role_card_layout;
+  background-color: var(--hr-neutral-0);
+  padding: var(--hr-spacing-08) 56px;
+  &__subheading {
+    font-size: var(--hr-spacing-06);
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+  &__btns {
+    padding: var(--hr-spacing-04) var(--hr-spacing-05);
+  }
+}

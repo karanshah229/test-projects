@@ -1,0 +1,29 @@
+.assignments {
+  &_card {
+    border-radius: var(--hr-spacing-04);
+    background-color: var(--hr-neutral-0);
+    color: #000;
+    height: 741px;
+    overflow: hidden;
+  }
+  &_container {
+    height: 100%;
+    padding: 34px 30px;
+    overflow-y: auto;
+  }
+  &_header {
+    font-size: var(--hr-spacing-05);
+    font-weight: 600;
+    line-height: var(--hr-spacing-06);
+    padding-bottom: var(--hr-spacing-03);
+    margin-bottom: var(--hr-spacing-06);
+    border-bottom: 1px solid #dedede;
+  }
+}
+
+.fallback_text {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: var(--hr-spacing-09);
+  letter-spacing: -0.5px;
+}

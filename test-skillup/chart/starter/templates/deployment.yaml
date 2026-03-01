@@ -1,0 +1,192 @@
+{{- $autoscaling := .Values.autoscaling }}
+{{- $app := .Values.app }}
+{{- $podAnnotations := .Values.podAnnotations }}
+{{- $nodeSelector := .Values.nodeSelector }}
+{{- $affinity := .Values.affinity }}
+{{- $tolerations := .Values.tolerations }}
+{{- $image := $.Values.global.image }}
+{{- $argoRollouts := .Values.argoRollouts }}
+{{- if not $argoRollouts.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "starter.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "starter.labels" . | nindent 4 }}
+spec:
+  {{- if not $autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "starter.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+      {{- if .Values.global.frontend.nginx.enabled }}
+        checksum/nginx-configmap: {{ include (print $.Template.BasePath "/configmap-nginx.yaml") $ | sha256sum }}
+      {{- end }}
+        checksum/configmap-env: {{ include (print $.Template.BasePath "/configmap.yaml") $ | sha256sum }}
+      {{- with $podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "starter.selectorLabels" . | nindent 8 }}
+    spec:
+      terminationGracePeriodSeconds: {{ $app.terminationGracePeriodSeconds | default "30" }}
+      {{- with .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "starter.serviceAccountName" . }}
+      {{- if not .Values.global.frontend.nginx.enabled }}
+      securityContext:
+        {{- toYaml $app.securityContext | nindent 8 }}
+      {{- end }}
+      {{- if .Values.global.frontend.nginx.enabled }}
+      volumes:
+      - name: nginx-config-web
+        configMap:
+          name: {{ include "starter.fullname" . }}-nginx-config-web
+          items:
+            - key: nginx.conf
+              path: nginx.conf
+      {{- end }}
+      {{- if .Values.volumes }}
+      {{- if not .Values.global.frontend.nginx.enabled }}
+      volumes:
+      {{- end }}
+        {{- toYaml .Values.volumes | nindent 8 }}
+      {{- end}}
+      {{- with .Values.global.dnsConfig }}
+      dnsConfig:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        {{- if .Values.global.frontend.nginx.enabled }}
+        - name: nginx
+          image:  {{ .Values.global.frontend.nginx.image }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: web-port
+              containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - name: nginx-config-web
+              mountPath: /etc/nginx/
+              readOnly: true
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.global.frontend.nginx.basePath }}nginx_health
+              port: web-port
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            timeoutSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.global.frontend.nginx.basePath }}nginx_health
+              port: web-port
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            timeoutSeconds: 30
+        {{- end }}
+        - name: {{ include "starter.fullname" . }}
+          {{- if not .Values.global.frontend.nginx.enabled }}
+          securityContext:
+            {{- toYaml $app.containerSecurityContext | nindent 12 }}
+          {{- end }}
+          image: "{{ $image.repository }}:{{ $image.tag }}"
+          imagePullPolicy: {{ $image.imagePullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ $app.port }}
+              protocol: TCP
+            {{- if and .Values.servicemonitor.enabled (ne .Values.servicemonitor.targetPort "http" )}}
+            - name: metrics
+              containerPort: {{ .Values.servicemonitor.port }}
+              protocol: TCP
+            {{- end }}
+          {{- if $app.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ $app.livenessProbe.path }}
+              {{- if $app.livenessProbe.httpGet.httpHeaders }}
+              httpHeaders: {{- toYaml $app.livenessProbe.httpGet.httpHeaders | nindent 14 }}
+              {{- end }}
+              port: {{ $app.port }}
+            initialDelaySeconds: {{ $app.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ $app.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ $app.livenessProbe.timeoutSeconds }}
+          {{- end }}
+          {{- if $app.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: {{ $app.readinessProbe.path }}
+              {{- if $app.readinessProbe.httpGet.httpHeaders }}
+              httpHeaders: {{- toYaml $app.readinessProbe.httpGet.httpHeaders | nindent 14 }}
+              {{- end }}
+              port: {{ $app.port }}
+            initialDelaySeconds: {{ $app.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ $app.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ $app.readinessProbe.timeoutSeconds }}
+          {{- end }}
+          {{- if $app.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              path: {{ $app.startupProbe.path }}
+              {{- if $app.startupProbe.httpGet.httpHeaders }}
+              httpHeaders: {{- toYaml $app.startupProbe.httpGet.httpHeaders | nindent 14 }}
+              {{- end }}
+              port: {{ $app.port }}
+            initialDelaySeconds: {{ $app.startupProbe.initialDelaySeconds }}
+            periodSeconds: {{ $app.startupProbe.periodSeconds }}
+            timeoutSeconds: {{ $app.startupProbe.timeoutSeconds }}
+            successThreshold: 1
+            failureThreshold: 10
+          {{- end }}
+          {{- with $app.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sh", "-c", "sleep 15"]
+          envFrom:
+          {{- if or .Values.global.envVariables .Values.global.tplEnvVariables .Values.envVariables .Values.tplEnvVariables }}
+          - configMapRef:
+              name: {{ include "starter.fullname" . }}-config
+          {{- end }}
+          {{- if .Values.externalSecrets.enabled }}
+          - secretRef:
+              name: {{ include "starter.fullname" . }}-secrets
+          {{- end }}
+          {{- with $app.envFrom }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with $app.command }}
+          command:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          resources:
+            {{- toYaml $app.resources | nindent 12 }}
+      {{- with $nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.global.frontend.nginx.enabled }}
+      hostAliases:
+      - ip: 127.0.0.1
+        hostnames:
+          - node
+      {{- end }}
+{{- end}}

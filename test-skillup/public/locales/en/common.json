@@ -1,0 +1,36 @@
+{
+  "skillup_product_title": "SkillUp",
+  "hackerrank_product_title": "Hackerrank",
+  "hackerrank_logo_title": "Hackerrank Logo",
+  "errors": {
+    "something_went_wrong": "Oops! something went wrong.",
+    "try_again": "Please try again.",
+    "error_reported": "This issue has been reported. You can try reloading.",
+    "reload_btn_text": "Reload",
+    "api_error": "Unable to load this data, try again in sometime"
+  },
+  "loading_msg": "Loading",
+  "app_header": {
+    "logout_dialog_header": "Log out of all sessions ?",
+    "logout_dialog_body": "We noticed that you are currently logged in from more than one location. Uncheck the box below if you want to keep the other sessions.",
+    "logout_dialog_checkbox_label": "End all active sessions",
+    "logout_dialog_cancel_button": "Cancel",
+    "logout_dialog_logout_button": "Log out",
+    "home": "Home",
+    "overview": "Overview",
+    "talent_directory": "Talent",
+    "profile": "Profile",
+    "settings": "Settings",
+    "skills": "Skills",
+    "avatar": {
+      "aria_label": "avatar with initials"
+    },
+    "logout": "Logout"
+  },
+  "proficiencies": {
+    "prebeginner": "Pre-beginner",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "expert": "Expert"
+  }
+}

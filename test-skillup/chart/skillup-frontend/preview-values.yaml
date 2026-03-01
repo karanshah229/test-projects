@@ -1,0 +1,20 @@
+global:
+  environment: preview
+  image: 
+    repository: 134148934511.dkr.ecr.us-east-1.amazonaws.com/skillup-frontend
+  dnsConfig:
+    searches: ['vpc.hackerrank.com']
+
+
+skillup-frontend:
+  argoRollouts:
+    enabled: true
+  envVariables:
+    NEXT_PUBLIC_CDN_URL: "hrcdn.net"
+    NEW_RELIC_APP_NAME: "skillup-frontend-preview"
+    NEW_RELIC_ENABLED: "true"
+  tplEnvVariables:
+    BACKEND_URL:  "https://appgateway-{{ .Release.Namespace }}.hackerrank.com"
+  podAnnotations:
+    observability.hackerrank.com/logging: 'enabled'
+    observability.hackerrank.com/newrelic-logging: 'enabled'

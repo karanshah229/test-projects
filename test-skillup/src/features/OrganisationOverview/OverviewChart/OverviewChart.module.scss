@@ -1,0 +1,17 @@
+.chartContainer {
+  min-width: 350px;
+  min-height: 480px;
+}
+
+.overviewToolTip {
+  width: 200px;
+  box-sizing: border-box;
+  color: var(--hr-neutral-70);
+  border: 1px solid var(--hr-neutral-10);
+  box-shadow: 0px var(--hr-spacing-01) var(--hr-spacing-02) var(--hr-neutral-10);
+  padding: var(--hr-spacing-05) var(--hr-spacing-04);
+
+  .proficiency-label {
+    flex: 1;
+  }
+}

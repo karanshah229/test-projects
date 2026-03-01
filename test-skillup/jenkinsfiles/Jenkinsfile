@@ -1,0 +1,11 @@
+@Library("hackerrank-jenkins-library/skillup-frontend-pipelines@master") _
+
+def pipelineParams = params
+skillupFrontendPipeline {
+  agentLabel     = 'skillup'
+  repoName       = 'skillup-frontend'
+  releaseName    = 'skillup-frontend'
+  dockerfilePath = 'Dockerfile'
+  prodBranch     = 'master'
+  featureBranchProdBuild = pipelineParams.featureBranchProdBuild
+}

@@ -1,0 +1,30 @@
+.search {
+  width: 45%;
+}
+
+.filter {
+  position: relative;
+  width: 30%;
+}
+
+.calendar {
+  position: absolute;
+  top: calc(100% + var(--hr-spacing-02));
+  right: calc(100% + var(--hr-spacing-02));
+  z-index: 1;
+}
+
+.dataTableContainer {
+  border-radius: var(--hr-spacing-01);
+}
+
+.skillList {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.remainingSkills {
+  min-width: 20px;
+  margin-right: 8px;
+}

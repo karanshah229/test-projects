@@ -1,0 +1,15 @@
+.filterContainer {
+  min-height: calc(100vh - calc(2rem + 2rem + 64px));
+  border-radius: var(--hr-spacing-02);
+  overflow: auto;
+}
+
+.clear_all_btn {
+  font-weight: 400;
+  color: var(--hr-neutral-50);
+}
+
+.accordionTrigger {
+  margin-left: calc(-1 * var(--hr-spacing-04));
+  margin-right: calc(-1 * var(--hr-spacing-03));
+}

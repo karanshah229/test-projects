@@ -1,0 +1,139 @@
+{{- if .Values.global.frontend.nginx.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "starter.fullname" . }}-nginx-config-web
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "starter.labels" . | nindent 4 }}
+data:
+  nginx.conf: |
+    user  nginx;
+    worker_processes  1;
+    error_log  /var/log/nginx/nginx-error.log;
+    pid        /var/run/nginx.pid;
+    events {
+        worker_connections  1024;
+        accept_mutex off;
+        use epoll;
+    }
+    http {
+        map $http_user_agent $blockedagent {
+          default         0;
+          ~*pingback      1;
+          ~*malicious     1;
+          ~*backdoor      1;
+          ~*netcrawler    1;
+          ~*scrapy        1;
+          ~Antivirx       1;
+          ~Arian          1;
+          ~webbandit      1;
+        }
+        types {
+          text/html                             html htm shtml;
+          text/css                              css;
+          text/xml                              xml rss;
+          image/gif                             gif;
+          image/jpeg                            jpeg jpg;
+          application/x-javascript              js;
+          text/plain                            txt;
+          text/x-component                      htc;
+          text/mathml                           mml;
+          image/png                             png;
+          image/x-icon                          ico;
+          image/x-jng                           jng;
+          image/vnd.wap.wbmp                    wbmp;
+          application/java-archive              jar war ear;
+          application/mac-binhex40              hqx;
+          application/pdf                       pdf;
+          application/x-cocoa                   cco;
+          application/x-java-archive-diff       jardiff;
+          application/x-java-jnlp-file          jnlp;
+          application/x-makeself                run;
+          application/x-perl                    pl pm;
+          application/x-pilot                   prc pdb;
+          application/x-rar-compressed          rar;
+          application/x-redhat-package-manager  rpm;
+          application/x-sea                     sea;
+          application/x-shockwave-flash         swf;
+          application/x-stuffit                 sit;
+          application/x-tcl                     tcl tk;
+          application/x-x509-ca-cert            der pem crt;
+          application/x-xpinstall               xpi;
+          application/zip                       zip;
+          application/octet-stream              deb;
+          application/octet-stream              bin exe dll;
+          application/octet-stream              dmg;
+          application/octet-stream              eot;
+          application/octet-stream              iso img;
+          application/octet-stream              msi msp msm;
+          audio/mpeg                            mp3;
+          audio/x-realaudio                     ra;
+          video/mpeg                            mpeg mpg;
+          video/quicktime                       mov;
+          video/x-flv                           flv;
+          video/x-msvideo                       avi;
+          video/x-ms-wmv                        wmv;
+          video/x-ms-asf                        asx asf;
+          video/x-mng                           mng;
+        }
+        default_type  application/octet-stream;
+        log_format custom '$http_true_client_ip - $remote_user [$time_local] '
+                        '"$request" $status $body_bytes_sent '
+                        '"$http_referer" "$http_user_agent" $request_time $upstream_response_time';
+        access_log  /var/log/nginx/nginx-access.log custom buffer=16k;
+        set_real_ip_from   10.0.0.0/8;
+        real_ip_header X-Forwarded-For;
+        real_ip_recursive on;
+        sendfile        on;
+        tcp_nopush      on;
+        tcp_nodelay     off;
+        client_max_body_size 100m;
+        keepalive_timeout  65;
+        gzip on;
+        gzip_http_version 1.0;
+        gzip_proxied any;
+        gzip_min_length 500;
+        gzip_disable "MSIE [1-6]\.";
+        gzip_types text/plain text/xml text/css
+                text/comma-separated-values
+                text/javascript application/x-javascript
+                application/atom+xml;
+        proxy_buffer_size   128k;
+        proxy_buffers   4 256k;
+        proxy_busy_buffers_size   256k;
+        large_client_header_buffers 8 16k;
+        resolver 8.8.8.8 valid=30s;
+        upstream node {
+          server node:3000;
+        }
+        server {
+          listen       80;
+          server_name _;
+          keepalive_timeout 5;
+          client_max_body_size 4G;
+          proxy_set_header Host $http_host;
+          proxy_set_header X-Forwarded-Port 80;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "upgrade";
+          if ($blockedagent) {
+            return 403;
+            break;
+          }
+          location {{ .Values.global.frontend.nginx.basePath }}nginx_status {
+            stub_status;
+          }
+          location {{ .Values.global.frontend.nginx.basePath }}nginx_health {
+            return 200;
+          }
+          {{- if .Values.global.frontend.nginx.additionalNginxConfig }}
+          {{ .Values.global.frontend.nginx.additionalNginxConfig | nindent 10 }}
+          {{- end }}
+          
+          location / {
+            proxy_pass http://node/;
+          }
+        }
+    }
+{{- end }}
